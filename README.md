@@ -1,19 +1,9 @@
-Chitter Challenge
+Chitteruby!
 =================
 
-* Feel free to use Google, your notes, books, etc. but work on your own
-* If you refer to the solution of another coach or student, please put a link to that in your README
-* If you have a partial solution, **still check in a partial solution**
-* You must submit a pull request to this repo with your code by 10am Monday morning
+A Twitter clone built using the Sinatra Ruby gem and Embedded Ruby.
 
 Challenge:
--------
-
-As usual please start by forking this repo.
-
-We are going to write a small Twitter clone that will allow the users to post messages to a public stream.
-
-Features:
 -------
 
 ```
@@ -52,23 +42,6 @@ So that I can stay constantly tapped in to the shouty box of Chitter
 I want to receive an email if I am tagged in a Peep
 ```
 
-Technical Approach:
------
-
-In the last two weeks, you integrated a database using the `pg` gem and Repository classes. You also implemented small web applications using Sinatra, RSpec, HTML and ERB views to make dynamic webpages. You can continue to use this approach when building Chitter Challenge.
-
-You can refer to the [guidance on Modelling and Planning a web application](https://github.com/makersacademy/web-applications/blob/main/pills/modelling_and_planning_web_application.md), to help you in planning the different web pages you will need to implement this challenge. If you'd like to deploy your app to Heroku so other people can use it, [you can follow this guidance](https://github.com/makersacademy/web-applications/blob/main/html_challenges/07_deploying.md).
-
-If you'd like more technical challenge now, try using an [Object Relational Mapper](https://en.wikipedia.org/wiki/Object-relational_mapping) as the database interface, instead of implementing your own Repository classes.
-
-Some useful resources:
-**Ruby Object Mapper**
-- [ROM](https://rom-rb.org/)
-
-**ActiveRecord**
-- [ActiveRecord ORM](https://guides.rubyonrails.org/active_record_basics.html)
-- [Sinatra & ActiveRecord setup](https://learn.co/lessons/sinatra-activerecord-setup)
-
 Notes on functionality:
 ------
 
@@ -89,35 +62,65 @@ And/Or:
 
 * Work on the CSS to make it look good.
 
-Good luck and let the chitter begin!
+Technical Approach:
+-----
 
-Code Review
------------
+My initial approach to the bankend functionality was to follow the Model, Repository and Database connection class framework to implement the programs core functionality.
 
-In code review we'll be hoping to see:
+View the ```recipe.md``` file for further notes and details on how I approached this project.
 
-* All tests passing
-* High [Test coverage](https://github.com/makersacademy/course/blob/main/pills/test_coverage.md) (>95% is good)
-* The code is elegant: every class has a clear responsibility, methods are short etc.
+Within the app.rb file, the Sinatra Ruby gem is used to establish routes and determine which HTTP requests the application can respond to.
 
-Reviewers will potentially be using this [code review rubric](docs/review.md).  Referring to this rubric in advance may make the challenge somewhat easier.  You should be the judge of how much challenge you want at this moment.
+I took a much more hands on approach with creating the routes after doing a basic outline which can be viewed within the ```routes_recipe.md``` file.
 
-Notes on test coverage
-----------------------
+## Installation 
+Run the below from the command line:
 
-Please ensure you have the following **AT THE TOP** of your spec_helper.rb in order to have test coverage stats generated
-on your pull request:
-
-```ruby
-require 'simplecov'
-require 'simplecov-console'
-
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
-  SimpleCov::Formatter::Console,
-  # Want a nice code coverage website? Uncomment this next line!
-  # SimpleCov::Formatter::HTMLFormatter
-])
-SimpleCov.start
+```
+git clone https://github.com/MattHammond94/Chitteruby.git
+cd Chitteruby
+bundle install
 ```
 
-You can see your test coverage when you run your tests. If you want this in a graphical form, uncomment the `HTMLFormatter` line and see what happens!
+You will then need to create a database and create the tables within the database:
+
+```
+createdb chitter_base
+psql -h 127.0.0.1 chitter_base < ./spec/table_design_seeds.sql
+```
+
+You will also need a seperate database for running/creating tests in the spec files.
+
+```
+createdb chitter_base_test
+psql -h 127.0.0.1 chitter_base_test < ./spec/table_design_seeds.sql
+```
+
+You can then run ```rspec``` to view the current test coverage of 100%
+
+Note - If you wish to use different database names then you will need to change change the current conditional branches at the top of the ```DatabaseConnection``` class (See lines 6 and 8.)
+
+## Running the program
+
+To run the program run ```rackup``` from the command line and then visit ```http://localhost:9292/``` in your chosen web browser.
+
+## Notes
+
+Personal review:
+
+I wanted to jump straight into the project after completing my design recipe for how the database would work/interact with the repo classes so I only gave a short overview to how the routes would work and this can be referenced in the “routes_recipe.md” file.
+
+I quickly became intrigued by new ideas and new features as I was working through creating the routes which meant my test driven approach became somewhat sloppy and less structured.
+
+Also because of this my commits also became relatively fast and loose and not as structured as they have been on previous projects.
+
+Still to do:
+* General design/look - Learn and apply more CSS.
+* Reformat the way the time/date is shown.
+* Add Further tests to control user input.
+* Go back and research database joins - use this knowledge to implement comments on peeps
+* Add a route to the user page for removing an account - implement a piece of JS to warn the user that if account is removed all peeps will go with it.
+* Add some regex to control password and email acceptability - Make passwords more secure.
+* Update and include diagrams in my route recipe/design
+* IMPORTANT - DEPLOY
+* For fun: Maybe add some censorship(just because)
