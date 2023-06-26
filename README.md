@@ -118,6 +118,8 @@ Still to do:
 * General design/look - Learn and apply more CSS.
 * Reformat the way the time/date is shown.
 * Add Further tests to control user input.
+* Look into 'Cost' with Bcrypt to resolve tests functioning slowly.
+* Look into potential bugs as per notes in spec files.
 * Go back and research database joins - use this knowledge to implement comments on peeps
 * Add a route to the user page for removing an account - implement a piece of JS to warn the user that if account is removed all peeps will go with it.
 * Add some regex to control password and email acceptability - Make passwords more secure.
